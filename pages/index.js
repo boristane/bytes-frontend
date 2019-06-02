@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Layout from "../components/Layout";
 import axios from "axios";
+import constants from "../constants";
+
+const { url } = constants;
 
 const PostLink = props => {
   return (
@@ -17,11 +20,11 @@ export default function Index(props) {
     <Layout>
       <h1>Bytes</h1>
       <ul>
-        {props.bytes.map(show => {
+        {props.bytes.map(byte => {
           return (
-            <li key={show.id}>
-              <Link as={`/p/${show.id}`} href={`/post/id=${show.id}`}>
-                <a>{show.title}</a>
+            <li key={byte.id}>
+              <Link as={`/p/${byte.id}`} href={`/post/id=${byte.id}`}>
+                <a>{byte.title}</a>
               </Link>
             </li>
           );
@@ -32,7 +35,7 @@ export default function Index(props) {
 }
 
 Index.getInitialProps = async function() {
-  const res = await axios.get("http://localhost:80/byte/list/?page=2");
+  const res = await axios.get(`${url}/byte/list/?page=1`);
   const data = res.data;
   return data;
 };

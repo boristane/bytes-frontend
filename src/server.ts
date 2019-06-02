@@ -11,10 +11,10 @@ const server = express();
 app
   .prepare()
   .then(() => {
-    server.get("/p/:title", (req: Request, res: ServerResponse) => {
+    server.get("/p/:id", (req: Request, res: ServerResponse) => {
       const path = "/post";
-      const { title } = req.params;
-      app.render(req, res, path, { title });
+      const { id } = req.params;
+      app.render(req, res, path, { id });
     });
 
     server.get("*", (req, res) => {
