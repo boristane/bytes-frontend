@@ -1,20 +1,7 @@
-import Link from "next/link";
 import Layout from "../components/Layout";
-import axios from "axios";
-import constants from "../constants";
+import ByteLink from "../components/ByteLink";
 import React from "react";
-
-const { url } = constants;
-
-const PostLink = props => {
-  return (
-    <li>
-      <Link href={`/post?title=${props.title}`} as={`/p/${props.id}`}>
-        <a>{props.title}</a>
-      </Link>
-    </li>
-  );
-};
+import { getByteList } from "../src/api";
 
 export default function Index(props) {
   return (
@@ -23,10 +10,8 @@ export default function Index(props) {
       <ul>
         {props.bytes.map(byte => {
           return (
-            <li key={byte.id}>
-              <Link as={`/p/${byte.id}`} href={`/post/id=${byte.id}`}>
-                <a>{byte.title}</a>
-              </Link>
+            <li key={byte.id.toString()}>
+              <ByteLink {...byte} />
             </li>
           );
         })}
@@ -36,7 +21,5 @@ export default function Index(props) {
 }
 
 Index.getInitialProps = async function() {
-  const res = await axios.get(`${url}/byte/list/?page=1`);
-  const data = res.data;
-  return data;
+  return await getByteList(1);
 };

@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx next",
+    "dev": "npx next -p 80",
     "build": "npx next build",
-    "start": "ENV=dev nodemon src/server.ts",
-    "watch": "tsc --watch src/*/**"
+    "start": "nodemon src/server.ts",
+    "watch": "tsc --watch"
   },
   "keywords": [],
   "author": "",

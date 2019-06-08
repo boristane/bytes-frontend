@@ -1,16 +1,13 @@
 import Layout from "../components/Layout";
-import axios from "axios";
-import constants from "../constants";
 import React from "react";
-
-const { url } = constants;
+import { getByte } from "../src/api";
 
 const Content = props => {
   return (
     <Layout>
       <div>
         <h1>{props.byte.title}</h1>
-        <img src={`${props.byte.image}`} />
+        <img src={props.byte.image} />
         <p>This is the post content</p>
       </div>
     </Layout>
@@ -23,6 +20,5 @@ export default function Post(props) {
 
 Post.getInitialProps = async function(props) {
   const { id } = props.query;
-  const res = await axios(`${url}/byte/${id}`);
-  return res.data;
+  return await getByte(id);
 };
