@@ -2,6 +2,7 @@ import Link from "next/link";
 import Layout from "../components/Layout";
 import axios from "axios";
 import constants from "../constants";
+import React from "react";
 
 const { url } = constants;
 

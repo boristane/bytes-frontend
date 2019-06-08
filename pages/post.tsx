@@ -1,6 +1,7 @@
 import Layout from "../components/Layout";
 import axios from "axios";
 import constants from "../constants";
+import React from "react";
 
 const { url } = constants;
 
@@ -23,6 +24,5 @@ export default function Post(props) {
 Post.getInitialProps = async function(props) {
   const { id } = props.query;
   const res = await axios(`${url}/byte/${id}`);
-  console.log(res.data);
   return res.data;
 };
