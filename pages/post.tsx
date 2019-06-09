@@ -2,6 +2,7 @@ import Layout from "../components/Layout";
 import React, { useEffect, useState } from "react";
 import { getByte, loadFile } from "../src/api";
 import { Markdown } from "react-showdown";
+import Link from "next/link";
 
 const layoutStyle = {
   maxWidth: 650,
@@ -19,17 +20,91 @@ const Content = props => {
 
     fetchData();
   }, []);
+
+  const date = new Date(props.byte.created);
+  const dateOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  };
+
   return (
     <Layout>
       <div style={layoutStyle}>
-        <h1>{props.byte.title}</h1>
-        <img src={props.byte.image} className="main-image" />
-        <Markdown markup={markdown} />
+        <h1 style={{ marginBottom: 25 }}>
+          <Link href={`/post?id=${props.byte.id}`} as={`/b/${props.byte.id}`}>
+            <a style={{ fontSize: 20, lineHeight: 1.8 }}>{props.byte.title}</a>
+          </Link>
+          <div>
+            <span style={{ color: "grey" }}>
+              {date.toLocaleDateString("en-US", dateOptions)}
+            </span>
+          </div>
+        </h1>
+        <img src={props.byte.image} className="header-image" />
+        <div className="body">
+          <Markdown markup={markdown} />
+        </div>
       </div>
       <style>
         {`
-          
-          `}
+          .header-image {
+            object-fit: cover;
+            width: 100%;
+            height: 300px;
+          }
+        
+        pre { 
+          font-family: monospace;
+          background-color: #f9f9f9;
+          padding: 15px;
+          border-radius: 2px;
+          overflow-x: auto;
+        }
+        
+        h2, h3, h4 {
+          font-weight: normal;
+          margin-top: 40px;
+          font-size: 15px
+        }
+        
+        .body h1 {
+          display: none
+        }
+        
+        .language-bash,
+        .language-js,
+        .language-ts {
+            color: #070707;
+        }    
+        
+        strong {
+          font-weight: 600;
+          color: #444;
+        }
+        
+        ol {
+          padding-left: 1.6em;
+        }
+        
+        ul {
+          padding-left: 15px;
+          list-style-type: none;
+        }
+        
+        p img {
+          width: 100%;
+        }
+        
+        p, ol,
+        p, ul {
+          line-height: 25px;
+        }
+        
+        em {
+          color: grey;
+        }
+        `}
       </style>
     </Layout>
   );

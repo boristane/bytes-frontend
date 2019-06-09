@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 const dateLayout = {
-  width: 120,
+  width: 150,
   display: "inline-block",
   textAlign: "right" as "right",
   marginRight: 40,

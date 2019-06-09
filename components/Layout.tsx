@@ -17,6 +17,7 @@ export default function Layout(props) {
         {`
         * {
           font: 13px Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
+          color: #444444
         }
         ul {
           padding: 0;
@@ -30,6 +31,7 @@ export default function Layout(props) {
         a {
           text-decoration: none;
           color: rgb(253, 101, 101);
+          transition: all 0.2s ease-in-out;
         }
 
         a:hover {
