@@ -4,6 +4,7 @@ import { getByte, loadFile, deleteByte } from "../src/api";
 import { Markdown } from "react-showdown";
 import Link from "next/link";
 import Router from "next/router";
+import Error from "next/error";
 
 const layoutStyle = {
   maxWidth: 650,
@@ -124,6 +125,7 @@ const Content = props => {
 };
 
 export default function Post(props) {
+  if (props.err) return <Error statusCode={404} />;
   return <Content byte={props.byte} />;
 }
 

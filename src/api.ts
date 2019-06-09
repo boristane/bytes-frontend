@@ -12,14 +12,24 @@ const instance = Axios.create({
 export default instance;
 
 export async function getByteList(page: number) {
-  const res = await instance.get(`/byte/list/?page=${page}`);
-  const data = res.data;
-  return data;
+  try {
+    const res = await instance.get(`/byte/list/?page=${page}`);
+    const data = res.data;
+    return data;
+  } catch (err) {
+    console.error(err);
+    return { err };
+  }
 }
 
 export async function getByte(id: number) {
-  const res = await instance.get(`/byte/${id}`);
-  return res.data;
+  try {
+    const res = await instance.get(`/byte/${id}`);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
 }
 
 export async function getNumPage() {
@@ -43,6 +53,21 @@ export async function login(email: string, password: string) {
     const res = await instance.post(`/user/login`, {
       email,
       password
+    });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+}
+
+export async function signup(name: string, email: string, password: string) {
+  try {
+    const res = await instance.post("/user/signup", {
+      name,
+      email,
+      password,
+      admin: false
     });
     return res.data;
   } catch (err) {
