@@ -1,12 +1,12 @@
 import Layout from "../components/Layout";
 import ByteLink from "../components/ByteLink";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { getByteList } from "../src/api";
+import PageSelector from "../components/PageSelector";
 
 export default function Index(props) {
   return (
     <Layout>
-      <h1>Bytes</h1>
       <ul>
         {props.bytes.map(byte => {
           return (
@@ -16,10 +16,13 @@ export default function Index(props) {
           );
         })}
       </ul>
+      <PageSelector currentPage={props.page} />
     </Layout>
   );
 }
 
-Index.getInitialProps = async function() {
-  return await getByteList(1);
+Index.getInitialProps = async function(props) {
+  let { page } = props.query;
+  page = page ? page : 1;
+  return await getByteList(page);
 };

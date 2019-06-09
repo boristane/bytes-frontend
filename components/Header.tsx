@@ -7,13 +7,23 @@ const linkStyle = {
 
 export default function Header() {
   return (
-    <div>
-      <Link href="/">
-        <a style={linkStyle}>Home</a>
-      </Link>
+    <div className="header">
+      <span style={linkStyle}>
+        <Link href="/">
+          <a>bytes</a>
+        </Link>
+        <span> </span>(<a href="https://github.com/boristane/bytes">src</a>)
+      </span>
       <Link href="/about">
-        <a style={linkStyle}>About</a>
+        <a style={linkStyle}>about</a>
       </Link>
+      <style>
+        {`
+          .header {
+            margin-bottom: 50px
+          }
+          `}
+      </style>
     </div>
   );
 }
