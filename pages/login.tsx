@@ -33,6 +33,10 @@ export default function Login(props) {
 
     Router.push("/");
   };
+
+  useEffect(() => {
+    document.title = `login`;
+  });
   return (
     <Layout>
       <div>

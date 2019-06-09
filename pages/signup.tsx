@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { signup } from "../src/api";
 import Router from "next/router";
 
@@ -30,6 +30,10 @@ export default function Signup() {
     }
     Router.push("/login");
   };
+
+  useEffect(() => {
+    document.title = `$new user`;
+  });
   return (
     <Layout>
       <div>

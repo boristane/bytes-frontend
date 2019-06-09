@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import React from "react";
+import React, { useEffect } from "react";
 
 const style = {
   marginLeft: 30,
@@ -7,6 +7,9 @@ const style = {
 };
 
 export default function About() {
+  useEffect(() => {
+    document.title = `about`;
+  });
   return (
     <Layout>
       <div style={style}>

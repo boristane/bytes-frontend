@@ -1,11 +1,14 @@
 import Layout from "../components/Layout";
 import ByteLink from "../components/ByteLink";
-import React from "react";
+import React, { useEffect } from "react";
 import { getByteList } from "../src/api";
 import PageSelector from "../components/PageSelector";
 import Error from "next/error";
 
 export default function Index(props) {
+  useEffect(() => {
+    document.title = `page: ${props.page}`;
+  });
   if (props.err) return <Error statusCode={404} />;
   return (
     <Layout>

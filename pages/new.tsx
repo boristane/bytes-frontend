@@ -26,6 +26,10 @@ export default function New(props) {
   const [loaded, setLoaded] = useState(0);
   const [message, setMessage] = useState("");
 
+  useEffect(() => {
+    document.title = `new byte`;
+  });
+
   const handleSelectedImage = e => {
     e.preventDefault();
     setImage(e.target.files[0]);

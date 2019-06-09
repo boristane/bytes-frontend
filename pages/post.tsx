@@ -31,6 +31,10 @@ const Content = props => {
     setToken(b ? b : "");
   }, []);
 
+  useEffect(() => {
+    document.title = `${props.byte.title}`;
+  });
+
   const date = new Date(props.byte.created);
   const dateOptions = {
     year: "numeric",
