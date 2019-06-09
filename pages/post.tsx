@@ -1,8 +1,9 @@
 import Layout from "../components/Layout";
 import React, { useEffect, useState } from "react";
-import { getByte, loadFile } from "../src/api";
+import { getByte, loadFile, deleteByte } from "../src/api";
 import { Markdown } from "react-showdown";
 import Link from "next/link";
+import Router from "next/router";
 
 const layoutStyle = {
   maxWidth: 650,
@@ -11,6 +12,12 @@ const layoutStyle = {
 
 const Content = props => {
   const [markdown, setMarkdown] = useState("");
+  const [token, setToken] = useState("");
+  async function handleDelete(e) {
+    e.preventDefault();
+    const a = await deleteByte(props.byte.id, token);
+    Router.push("/");
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +26,8 @@ const Content = props => {
     };
 
     fetchData();
+    const b = localStorage.getItem("token");
+    setToken(b ? b : "");
   }, []);
 
   const date = new Date(props.byte.created);
@@ -39,6 +48,9 @@ const Content = props => {
             <span style={{ color: "grey" }}>
               {date.toLocaleDateString("en-US", dateOptions)}
             </span>
+            <a onClick={handleDelete} style={{ marginLeft: 15 }} href="/">
+              {token === "" ? "" : "(delete)"}
+            </a>
           </div>
         </h1>
         <img src={props.byte.image} className="header-image" />
@@ -60,6 +72,7 @@ const Content = props => {
           padding: 15px;
           border-radius: 2px;
           overflow-x: auto;
+          border: 0.5px solid rgb(253, 101, 101)
         }
         
         h2, h3, h4 {
