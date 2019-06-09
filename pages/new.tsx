@@ -1,6 +1,10 @@
 import Layout from "../components/Layout";
 import React, { useEffect, useState } from "react";
-import { login } from "../src/api";
+import Axios from "axios";
+import getConfig from "next/config";
+
+const { publicRuntimeConfig } = getConfig();
+const { URL: url } = publicRuntimeConfig;
 
 const layout = {
   margin: 10
@@ -14,20 +18,47 @@ const textFieldStyle = {
   height: 0.5
 };
 
-export default function Login(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function New(props) {
+  const [title, setTitle] = useState("");
+  const [tags, setTags] = useState("");
+  const [image, setImage] = useState();
+  const [body, setBody] = useState();
+  const [loaded, setLoaded] = useState(0);
   const [message, setMessage] = useState("");
+
+  const handleSelectedImage = e => {
+    e.preventDefault();
+    setImage(e.target.files[0]);
+  };
+
+  const handleSelectedBody = e => {
+    e.preventDefault();
+    setBody(e.target.files[0]);
+  };
 
   const handleSubmit = async e => {
     e.preventDefault();
     setMessage("");
-    const { token } = await login(email, password);
-    if (!token) {
-      return setMessage("Authentication failed.");
-    }
-    localStorage.setItem("token", token);
-    localStorage.setItem("email", email);
+    const token = localStorage.getItem("token");
+    const data = new FormData();
+    data.append("image", image, image.name);
+    data.append("body", body, body.name);
+    data.append("title", title);
+    data.append("tags", tags);
+
+    const res = await Axios.post(`${url}/byte/`, data, {
+      onUploadProgress: ProgressEvent => {
+        setLoaded((ProgressEvent.loaded / ProgressEvent.total) * 100);
+        setMessage(
+          ProgressEvent.loaded === ProgressEvent.total
+            ? "Byte succesfully posted"
+            : ""
+        );
+      },
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
   };
   return (
     <Layout>
@@ -37,23 +68,42 @@ export default function Login(props) {
             <input
               style={textFieldStyle}
               type="text"
-              value={email}
-              onChange={(e: any) => setEmail(e.target.value)}
+              value={title}
+              onChange={(e: any) => setTitle(e.target.value)}
               required
-              placeholder="email"
+              placeholder="title"
             />
           </div>
           <div style={layout}>
             <input
               style={textFieldStyle}
-              type="password"
-              value={password}
-              onChange={(e: any) => setPassword(e.target.value)}
+              type="text"
+              value={tags}
+              onChange={(e: any) => setTags(e.target.value)}
               required
-              placeholder="password"
+              placeholder="tags"
+            />
+          </div>
+          <div style={layout}>
+            <input
+              type="file"
+              name="image"
+              onChange={handleSelectedImage}
+              required
+              accept="image/png"
+            />
+          </div>
+          <div style={layout}>
+            <input
+              type="file"
+              name="body"
+              onChange={handleSelectedBody}
+              required
+              accept=".md"
             />
           </div>
           <input style={layout} type="submit" value="Submit" />
+          <div> {Math.round(loaded)} %</div>
         </form>
         <div style={{ color: "red" }}>{message}</div>
       </div>

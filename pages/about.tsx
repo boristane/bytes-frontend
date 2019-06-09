@@ -19,8 +19,10 @@ export default function About() {
           <a href="https://en.wikipedia.org/wiki/Byte">source</a>].
         </p>
         <p>
-          This is thus a collection of (in)frequent posts on software
-          development, architecture and whatever else I feel like writing.
+          This is thus a collection of (in)frequent{" "}
+          <span style={{ fontStyle: "italic" }}>byte-sized</span> posts on
+          software development, architecture and whatever else I feel like
+          writing.
         </p>
       </div>
     </Layout>
