@@ -26,7 +26,7 @@ export default function Signup() {
     setMessage("");
     const { data, err } = await signup(name, email, password);
     if (err) {
-      return setMessage("Signip failed.");
+      return setMessage("Signup failed.");
     }
     Router.push("/login");
   };

@@ -72,18 +72,23 @@ const Content = props => {
           }
         
         pre { 
-          font-family: monospace;
           background-color: #f9f9f9;
           padding: 15px;
           border-radius: 2px;
           overflow-x: auto;
           border: 0.5px solid rgb(253, 101, 101)
         }
+
+        h1 {
+          font-weight: normal;
+          margin-top: 40px;
+          font-size: 20px
+        }
         
         h2, h3, h4 {
           font-weight: normal;
           margin-top: 40px;
-          font-size: 15px
+          font-size: 18px
         }
         
         .body h1 {
@@ -94,6 +99,7 @@ const Content = props => {
         .language-js,
         .language-ts {
             color: #070707;
+          font-family: monospace !important;
         }    
         
         strong {

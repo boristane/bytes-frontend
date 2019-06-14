@@ -6,6 +6,8 @@ This is thus a collection of (in)frequent byte-sized posts on software developme
 
 ## Environment Variables
 
+For development purposes, these are defined in the docker-compose file [here](https://github.com/boristane/bytes/blob/master/docker-compose.yml)
+
 | Variable | Description                              |
 | -------- | ---------------------------------------- |
 | URL      | The API url                              |
