@@ -82,13 +82,13 @@ const Content = props => {
         h1 {
           font-weight: normal;
           margin-top: 40px;
-          font-size: 20px
+          font-size: 16px
         }
         
         h2, h3, h4 {
           font-weight: normal;
           margin-top: 40px;
-          font-size: 18px
+          font-size: 16px
         }
         
         .body h1 {
@@ -127,6 +127,14 @@ const Content = props => {
         
         em {
           color: grey;
+        }
+        @media only screen and (max-width: 600px) {
+          h1 {
+            font-size: 20px
+          }
+          h2, h3, h4 {
+            font-size: 18px
+          }
         }
         `}
       </style>
